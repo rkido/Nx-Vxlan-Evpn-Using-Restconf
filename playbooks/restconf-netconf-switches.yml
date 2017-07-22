@@ -1,0 +1,17 @@
+---
+- name: Configure RESTCONF/NETCONF on Nexus devices
+  hosts: n9ks
+  connection: local
+  gather_facts: false
+#  strategy: free
+  vars_prompt:
+    - name: "nxusername"
+      prompt: "scp username"
+      private: no
+    - name: "nxpassword"
+      prompt: "scp password"
+      private: yes
+
+  roles:
+    - restconf-netconf-switches
+

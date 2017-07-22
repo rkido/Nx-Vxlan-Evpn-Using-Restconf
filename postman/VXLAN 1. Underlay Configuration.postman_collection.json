@@ -1,0 +1,236 @@
+{
+	"variables": [],
+	"info": {
+		"name": "VXLAN 1. Underlay Configuration",
+		"_postman_id": "36f0f73d-6c84-3c99-b7ea-18ea1e5f41ff",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Enable Features for VXLAN EVPN",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  <fm-items>\n    <pim-items>\n      <adminSt>{{STATE}}</adminSt>\n    </pim-items>\n    <ifvlan-items>\n      <adminSt>{{STATE}}</adminSt>\n    </ifvlan-items>\n    <vnsegment-items>\n      <adminSt>{{STATE}}</adminSt>\n    </vnsegment-items>\n    <nvo-items>\n      <adminSt>{{STATE}}</adminSt>\n    </nvo-items>\n    <ospf-items>\n      <adminSt>{{STATE}}</adminSt>\n    </ospf-items>\n    <bgp-items>\n      <adminSt>{{STATE}}</adminSt>\n    </bgp-items>\n    <evpn-items>\n      <adminSt>{{STATE}}</adminSt>\n    </evpn-items>\n  </fm-items>"
+				},
+				"description": "Enables these features:\n - feature bgp\n - feature ospf\n - feature nv overlay\n - feature vn-segment-vlan-based\n - feature interface-vlan\n - feature pim\n - nv overlay evpn"
+			},
+			"response": []
+		},
+		{
+			"name": "Convert Interface Medium to P2P",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  <intf-items>\n    <phys-items>\n      <PhysIf-list>\n        <id>{{SPINE-INT1}}</id>\n        <medium>p2p</medium>\n        <userCfgdFlags>admin_state</userCfgdFlags>\n      </PhysIf-list>\n      <PhysIf-list>\n        <id>{{SPINE-INT2}}</id>\n        <medium>p2p</medium>\n        <userCfgdFlags>admin_state</userCfgdFlags>\n      </PhysIf-list>\n      <PhysIf-list>\n        <id>{{SPINE-INT3}}</id>\n        <medium>p2p</medium>\n        <userCfgdFlags>admin_state</userCfgdFlags>\n      </PhysIf-list>\n      <PhysIf-list>\n        <id>{{SPINE-INT4}}</id>\n        <medium>p2p</medium>\n        <userCfgdFlags>admin_state</userCfgdFlags>\n      </PhysIf-list>\n    </phys-items>\n  </intf-items>"
+				},
+				"description": "Enables these features:\n - feature bgp\n - feature ospf\n - feature nv overlay\n - feature vn-segment-vlan-based\n - feature interface-vlan\n - feature pim\n - nv overlay evpn"
+			},
+			"response": []
+		},
+		{
+			"name": "Change MTU to 9216 on interfaces",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  <intf-items>\n    <phys-items>\n      <PhysIf-list>\n        <id>{{SPINE-INT1}}</id>\n        <mtu>9216</mtu>\n        <userCfgdFlags>admin_state</userCfgdFlags>\n      </PhysIf-list>\n      <PhysIf-list>\n        <id>{{SPINE-INT2}}</id>\n        <mtu>9216</mtu>\n        <userCfgdFlags>admin_state</userCfgdFlags>\n      </PhysIf-list>\n      <PhysIf-list>\n        <id>{{SPINE-INT3}}</id>\n        <mtu>9216</mtu>\n        <userCfgdFlags>admin_state</userCfgdFlags>\n      </PhysIf-list>\n      <PhysIf-list>\n        <id>{{SPINE-INT4}}</id>\n        <mtu>9216</mtu>\n        <userCfgdFlags>admin_state</userCfgdFlags>\n      </PhysIf-list>\n    </phys-items>\n  </intf-items>"
+				},
+				"description": "Enables these features:\n - feature bgp\n - feature ospf\n - feature nv overlay\n - feature vn-segment-vlan-based\n - feature interface-vlan\n - feature pim\n - nv overlay evpn"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Loopback with IPs for Underlay and VTEP",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  <ipv4-items>\n    <inst-items>\n      <dom-items>\n        <Dom-list>\n          <name>default</name>\n          <if-items>\n            <If-list>\n              <id>lo0</id>\n              <addr-items>\n                <Addr-list>\n                  <addr>{{LOOP0-IP}}/32</addr>\n                </Addr-list>\n                <Addr-list>\n                  <addr>{{LOOP0SEC-IP}}/32</addr>\n                  <type>secondary</type>\n                </Addr-list>\n              </addr-items>\n            </If-list>\n          </if-items>\n        </Dom-list>\n      </dom-items>\n    </inst-items>\n  </ipv4-items>\n  <intf-items>\n    <lb-items>\n      <LbRtdIf-list>\n        <id>lo0</id>\n      </LbRtdIf-list>\n    </lb-items>\n  </intf-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Make Spine Interfaces IP Unnumbered",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  <ipv4-items>\n    <inst-items>\n      <dom-items>\n        <Dom-list>\n          <name>default</name>\n          <if-items>\n            <If-list>\n              <id>{{SPINE-INT1}}</id>\n              <unnumbered>lo0</unnumbered>\n            </If-list>\n            <If-list>\n              <id>{{SPINE-INT2}}</id>\n              <unnumbered>lo0</unnumbered>\n            </If-list>\n            <If-list>\n              <id>{{SPINE-INT3}}</id>\n              <unnumbered>lo0</unnumbered>\n            </If-list>\n            <If-list>\n              <id>{{SPINE-INT4}}</id>\n              <unnumbered>lo0</unnumbered>\n            </If-list>\n          </if-items>\n        </Dom-list>\n      </dom-items>\n    </inst-items>\n  </ipv4-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create OSPF Instance",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  <ospf-items>\n    <inst-items>\n      <Inst-list>\n        <name>1</name>\n        <dom-items>\n          <Dom-list>\n            <name>default</name>\n            <rtrId>{{LOOP0-IP}}</rtrId>\n          </Dom-list>\n        </dom-items>\n      </Inst-list>\n    </inst-items>\n  </ospf-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Enable OSPF on SPINE and Loopbacks",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    <ospf-items>\n        <adminSt>enabled</adminSt>\n        <inst-items>\n            <Inst-list>\n                <name>1</name>\n                <adminSt>enabled</adminSt>\n                <dom-items>\n                    <Dom-list>\n                        <name>default</name>\n                        <adminSt>enabled</adminSt>\n                        <if-items>\n                            <If-list>\n                                <id>{{SPINE-INT1}}</id>\n                                <adminSt>enabled</adminSt>\n                                <advertiseSecondaries>true</advertiseSecondaries>\n                                <area>0.0.0.0</area>\n                                <bfdCtrl>unspecified</bfdCtrl>\n                                <cost>unspecified</cost>\n                                <deadIntvl>unspecified</deadIntvl>\n                                <helloIntvl>10</helloIntvl>\n                                <nwT>unspecified</nwT>\n                                <passiveCtrl>unspecified</passiveCtrl>\n                                <prio>1</prio>\n                                <rexmitIntvl>5</rexmitIntvl>\n                                <xmitDelay>1</xmitDelay>\n                            </If-list>\n                            <If-list>\n                                <id>{{SPINE-INT2}}</id>\n                                <adminSt>enabled</adminSt>\n                                <advertiseSecondaries>true</advertiseSecondaries>\n                                <area>0.0.0.0</area>\n                                <bfdCtrl>unspecified</bfdCtrl>\n                                <cost>unspecified</cost>\n                                <deadIntvl>unspecified</deadIntvl>\n                                <helloIntvl>10</helloIntvl>\n                                <nwT>unspecified</nwT>\n                                <passiveCtrl>unspecified</passiveCtrl>\n                                <prio>1</prio>\n                                <rexmitIntvl>5</rexmitIntvl>\n                                <xmitDelay>1</xmitDelay>\n                            </If-list>\n                            <If-list>\n                                <id>{{SPINE-INT3}}</id>\n                                <adminSt>enabled</adminSt>\n                                <advertiseSecondaries>true</advertiseSecondaries>\n                                <area>0.0.0.0</area>\n                                <bfdCtrl>unspecified</bfdCtrl>\n                                <cost>unspecified</cost>\n                                <deadIntvl>unspecified</deadIntvl>\n                                <helloIntvl>10</helloIntvl>\n                                <nwT>unspecified</nwT>\n                                <passiveCtrl>unspecified</passiveCtrl>\n                                <prio>1</prio>\n                                <rexmitIntvl>5</rexmitIntvl>\n                                <xmitDelay>1</xmitDelay>\n                            </If-list>\n                            <If-list>\n                                <id>lo0</id>\n                                <adminSt>enabled</adminSt>\n                                <advertiseSecondaries>true</advertiseSecondaries>\n                                <area>0.0.0.0</area>\n                                <bfdCtrl>unspecified</bfdCtrl>\n                                <cost>unspecified</cost>\n                                <deadIntvl>unspecified</deadIntvl>\n                                <helloIntvl>10</helloIntvl>\n                                <nwT>unspecified</nwT>\n                                <passiveCtrl>unspecified</passiveCtrl>\n                                <prio>1</prio>\n                                <rexmitIntvl>5</rexmitIntvl>\n                                <xmitDelay>1</xmitDelay>\n                            </If-list>\n                            <If-list>\n                                <id>{{SPINE-INT4}}</id>\n                                <adminSt>enabled</adminSt>\n                                <advertiseSecondaries>true</advertiseSecondaries>\n                                <area>0.0.0.0</area>\n                                <bfdCtrl>unspecified</bfdCtrl>\n                                <cost>unspecified</cost>\n                                <deadIntvl>unspecified</deadIntvl>\n                                <helloIntvl>10</helloIntvl>\n                                <nwT>unspecified</nwT>\n                                <passiveCtrl>unspecified</passiveCtrl>\n                                <prio>1</prio>\n                                <rexmitIntvl>5</rexmitIntvl>\n                                <xmitDelay>1</xmitDelay>\n                            </If-list>\n                        </if-items>\n                    </Dom-list>\n                </dom-items>\n            </Inst-list>\n        </inst-items>\n    </ospf-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Enable PIM ASM on interfaces",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  <pim-items>\n    <inst-items>\n      <dom-items>\n        <Dom-list>\n          <name>default</name>\n          <if-items>\n            <If-list>\n              <id>{{SPINE-INT1}}</id>\n              <pimSparseMode>true</pimSparseMode>\n            </If-list>\n            <If-list>\n              <id>{{SPINE-INT2}}</id>\n              <pimSparseMode>true</pimSparseMode>\n            </If-list>\n            <If-list>\n              <id>{{SPINE-INT3}}</id>\n              <pimSparseMode>true</pimSparseMode>\n            </If-list>\n            <If-list>\n              <id>{{SPINE-INT4}}</id>\n              <pimSparseMode>true</pimSparseMode>\n            </If-list>\n            <If-list>\n              <id>lo0</id>\n              <pimSparseMode>true</pimSparseMode>\n            </If-list>\n          </if-items>\n        </Dom-list>\n      </dom-items>\n    </inst-items>\n  </pim-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Configure Static RP on all nodes",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  <pim-items>\n    <inst-items>\n      <dom-items>\n        <Dom-list>\n          <name>default</name>\n          <staticrp-items>\n            <rp-items>\n              <StaticRP-list>\n                <addr>172.16.0.250/32</addr>\n                <rpgrplist-items>\n                  <RPGrpList-list>\n                    <grpListName>224.0.0.0/4</grpListName>\n                    <bidir>false</bidir>\n                  </RPGrpList-list>\n                </rpgrplist-items>\n              </StaticRP-list>\n            </rp-items>\n          </staticrp-items>\n        </Dom-list>\n      </dom-items>\n    </inst-items>\n  </pim-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

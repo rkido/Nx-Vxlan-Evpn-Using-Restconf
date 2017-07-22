@@ -1,0 +1,28 @@
+---
+- name: Remove Routing Protocols
+  hosts: csr1kvs
+  connection: local
+
+  tasks:
+    - name: Remove BGP, EIGRP and OSPF
+      ios_config:
+        lines:
+          - no ip multicast-routing distributed
+          - no ip pim autorp listener
+          - no ip pim send-rp-discovery
+          - no ip msdp originator-id Loopback0
+          - no ip msdp peer 192.168.0.1
+          - no ip msdp peer 192.168.0.2
+        provider: "{{ cli }}"
+
+    - name: Get interface lists
+      ios_facts:
+        gather_subset: interfaces
+        provider: "{{ cli }}"
+      register: content
+
+    - name: Check for Loopback1, if it exists delete it
+      ios_config:
+        lines: no interface loopback1
+        provider: "{{ cli }}"
+      when: content.ansible_facts.ansible_net_interfaces.Loopback1 is defined

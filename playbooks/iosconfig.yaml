@@ -1,0 +1,18 @@
+---
+- name: IOS Command Utility
+  hosts: csr1kvs
+  gather_facts: false
+  connection: local
+
+  vars_prompt:
+    - name: "userinput"
+      prompt: "IOS Command"
+      private: no
+
+  tasks:
+  - name: Running {{ userinput }}
+    ios_config:
+      lines: "{{ userinput }}"
+      provider: "{{ cli }}"
+    register: output
+  - debug: var=output.stdout[0]

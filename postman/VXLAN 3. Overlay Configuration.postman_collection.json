@@ -1,0 +1,561 @@
+{
+	"variables": [],
+	"info": {
+		"name": "VXLAN 3. Overlay Configuration",
+		"_postman_id": "129990aa-b0df-33b0-4d64-5f69b90c237b",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create VLAN and bind to VN 7348",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<bd-items>\n    <bd-items>\n        <BD-list>\n            <fabEncap>vlan-{{VLANforVNI7348}}</fabEncap>\n            <BdState>active</BdState>\n            <accEncap>vxlan-7348</accEncap>\n            <pcTag>1</pcTag>\n        </BD-list>\n    </bd-items>\n</bd-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create VLAN and bind to VN 8348",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<bd-items>\n    <bd-items>\n        <BD-list>\n            <fabEncap>vlan-{{VLANforVNI8348}}</fabEncap>\n            <BdState>active</BdState>\n            <accEncap>vxlan-8348</accEncap>\n            <pcTag>1</pcTag>\n        </BD-list>\n    </bd-items>\n</bd-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Routing VLAN and bind to VN 5000",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<bd-items>\n    <bd-items>\n        <BD-list>\n            <fabEncap>vlan-3000</fabEncap>\n            <BdState>active</BdState>\n            <accEncap>vxlan-5000</accEncap>\n            <pcTag>1</pcTag>\n        </BD-list>\n    </bd-items>\n</bd-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE EP1",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System/epId-items/Ep-list=1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create VTEP NVE Interface",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<epId-items>\n    <Ep-list>\n        <epId>1</epId>\n        <autoRemapReplicationServers>false</autoRemapReplicationServers>\n        <controllerId>0</controllerId>\n        <encapType>0</encapType>\n        <holdDownTime>180</holdDownTime>\n        <hostReach>bgp</hostReach>\n        <nws-items>\n            <vni-items>\n            </vni-items>\n        </nws-items>\n        <sourceInterface>lo0</sourceInterface>\n    </Ep-list>\n</epId-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add VNI 7348 to VTEP interface",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<epId-items>\n    <Ep-list>\n        <epId>1</epId>\n        <adminSt>enabled</adminSt>\n        <autoRemapReplicationServers>false</autoRemapReplicationServers>\n        <cfgSrc>0</cfgSrc>\n        <controllerId>0</controllerId>\n        <encapType>0</encapType>\n        <holdDownTime>180</holdDownTime>\n        <hostReach>bgp</hostReach>\n        <nws-items>\n            <vni-items>\n                <Nw-list>\n                    <vni>7348</vni>\n                    <associateVrfFlag>false</associateVrfFlag>\n                    <isLegacyMode>false</isLegacyMode>\n                    <isMcastRange>true</isMcastRange>\n                    <mcastGroup>230.230.230.230</mcastGroup>\n                    <suppressARP>true</suppressARP>\n                    <vniRangeMax>7348</vniRangeMax>\n                    <vniRangeMin>7348</vniRangeMin>\n                </Nw-list>\n            </vni-items>\n        </nws-items>\n        <sourceInterface>lo0</sourceInterface>\n    </Ep-list>\n</epId-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add VNI 8348 to VTEP interface",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<epId-items>\n    <Ep-list>\n        <epId>1</epId>\n        <adminSt>enabled</adminSt>\n        <autoRemapReplicationServers>false</autoRemapReplicationServers>\n        <cfgSrc>0</cfgSrc>\n        <controllerId>0</controllerId>\n        <encapType>0</encapType>\n        <holdDownTime>180</holdDownTime>\n        <hostReach>bgp</hostReach>\n        <nws-items>\n            <vni-items>\n                <Nw-list>\n                    <vni>8348</vni>\n                    <associateVrfFlag>false</associateVrfFlag>\n                    <isLegacyMode>false</isLegacyMode>\n                    <isMcastRange>true</isMcastRange>\n                    <mcastGroup>230.230.230.231</mcastGroup>\n                    <suppressARP>true</suppressARP>\n                    <vniRangeMax>8348</vniRangeMax>\n                    <vniRangeMin>8348</vniRangeMin>\n                </Nw-list>\n            </vni-items>\n        </nws-items>\n        <sourceInterface>lo0</sourceInterface>\n    </Ep-list>\n</epId-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Join L2 VNI 7348 to EVPN",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<evpn-items>\n    <adminSt>enabled</adminSt>\n    <bdevi-items>\n        <BDEvi-list>\n            <encap>vxlan-7348</encap>\n            <name>vxlan-7348</name>\n            <rd>rd:unknown:0:0</rd>\n            <rttp-items>\n                <RttP-list>\n                    <type>import</type>\n                    <ent-items>\n                        <RttEntry-list>\n                            <rtt>route-target:unknown:0:0</rtt>\n                        </RttEntry-list>\n                    </ent-items>\n                </RttP-list>\n                <RttP-list>\n                    <type>export</type>\n                    <ent-items>\n                        <RttEntry-list>\n                            <rtt>route-target:unknown:0:0</rtt>\n                        </RttEntry-list>\n                    </ent-items>\n                </RttP-list>\n            </rttp-items>\n        </BDEvi-list>\n    </bdevi-items>\n</evpn-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Join L2 VNI8348  to EVPN",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<evpn-items>\n    <adminSt>enabled</adminSt>\n    <bdevi-items>\n        <BDEvi-list>\n            <encap>vxlan-8348</encap>\n            <name>vxlan-8348</name>\n            <rd>rd:unknown:0:0</rd>\n            <rttp-items>\n                <RttP-list>\n                    <type>import</type>\n                    <ent-items>\n                        <RttEntry-list>\n                            <rtt>route-target:unknown:0:0</rtt>\n                        </RttEntry-list>\n                    </ent-items>\n                </RttP-list>\n                <RttP-list>\n                    <type>export</type>\n                    <ent-items>\n                        <RttEntry-list>\n                            <rtt>route-target:unknown:0:0</rtt>\n                        </RttEntry-list>\n                    </ent-items>\n                </RttP-list>\n            </rttp-items>\n        </BDEvi-list>\n    </bdevi-items>\n</evpn-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create VRF",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<inst-items>\n    <Inst-list>\n        <name>green</name>\n        <adminState>admin-up</adminState>\n        <ctrlrId>none</ctrlrId>\n        <dom-items>\n            <Dom-list>\n                <name>green</name>\n                <af-items>\n                    <DomAf-list>\n                        <type>ipv4-ucast</type>\n                        <ctrl-items>\n                            <AfCtrl-list>\n                                <type>l2vpn-evpn</type>\n                                <rttp-items>\n                                    <RttP-list>\n                                        <type>export</type>\n                                        <ent-items>\n                                            <RttEntry-list>\n                                                <rtt>route-target:unknown:0:0</rtt>\n                                            </RttEntry-list>\n                                        </ent-items>\n                                    </RttP-list>\n                                    <RttP-list>\n                                        <type>import</type>\n                                        <ent-items>\n                                            <RttEntry-list>\n                                                <rtt>route-target:unknown:0:0</rtt>\n                                            </RttEntry-list>\n                                        </ent-items>\n                                    </RttP-list>\n                                </rttp-items>\n                            </AfCtrl-list>\n                            <AfCtrl-list>\n                                <type>ipv4-ucast</type>\n                                <rttp-items>\n                                    <RttP-list>\n                                        <type>import</type>\n                                        <ent-items>\n                                            <RttEntry-list>\n                                                <rtt>route-target:unknown:0:0</rtt>\n                                            </RttEntry-list>\n                                        </ent-items>\n                                    </RttP-list>\n                                    <RttP-list>\n                                        <type>export</type>\n                                        <ent-items>\n                                            <RttEntry-list>\n                                                <rtt>route-target:unknown:0:0</rtt>\n                                            </RttEntry-list>\n                                        </ent-items>\n                                    </RttP-list>\n                                </rttp-items>\n                            </AfCtrl-list>\n                        </ctrl-items>\n                    </DomAf-list>\n                </af-items>\n                <rd>rd:unknown:0:0</rd>\n            </Dom-list>\n        </dom-items>\n        <encap>vxlan-5000</encap>\n    </Inst-list>\n</inst-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create L3 VLAN and bind to L3 VN",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<bd-items>\n    <bd-items>\n        <BD-list>\n            <fabEncap>vlan-{{VLANforVNI7348}}</fabEncap>\n            <BdState>active</BdState>\n            <accEncap>vxlan-7348</accEncap>\n            <pcTag>1</pcTag>\n        </BD-list>\n    </bd-items>\n</bd-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create SVI for VXLAN Routing",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<intf-items>   \n    <svi-items> \n        <If-list>\n            <id>vlan3000</id>\n            <adminSt>up</adminSt>\n            <autostate>true</autostate>\n            <bw>1000000</bw>\n            <carDel>100</carDel>\n            <delay>1</delay>\n            <inbMgmt>false</inbMgmt>\n            <loadIntvl1>60</loadIntvl1>\n            <loadIntvl2>300</loadIntvl2>\n            <loadIntvl3>60</loadIntvl3>\n            <medium>bcast</medium>\n            <mtu>9216</mtu>\n            <mtuInherit>true</mtuInherit>\n            <snmpTrap>true</snmpTrap>\n            <vlanId>0</vlanId>\n        </If-list>\n    </svi-items>\n</intf-items>\n<ipv4-items>\n    <inst-items>\n        <dom-items>\n            <Dom-list>\n                <name>green</name>\n                <autoDiscard>disabled</autoDiscard>\n                <if-items>\n                    <If-list>\n                        <id>vlan3000</id>\n                        <adminSt>enabled</adminSt>\n                        <directedBroadcast>disabled</directedBroadcast>\n                        <forward>enabled</forward>\n                    </If-list>\n                </if-items>\n            </Dom-list>\n        </dom-items>\n    </inst-items>\n</ipv4-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Join L3 SVI to VRF Green",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    <intf-items>   \n        <svi-items> \n            <If-list>\n                <id>vlan3000</id>\n                <rtvrfMbr-items>\n                    <tCl>l3Inst</tCl>\n                    <tDn>/System/Inst-list[mode=&apos;green&apos;]</tDn>\n                </rtvrfMbr-items>\n            </If-list>\n        </svi-items>\n    </intf-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add L3 VNI to NVE Interface",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<epId-items>\n    <Ep-list>\n        <epId>1</epId>\n        <nws-items>\n            <vni-items>\n                <Nw-list>\n                    <vni>5000</vni>\n                    <associateVrfFlag>true</associateVrfFlag>\n                </Nw-list>\n            </vni-items>\n        </nws-items>\n    </Ep-list>\n</epId-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Anycast SVI for VNI 7348",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<intf-items>   \n    <svi-items> \n        <If-list>\n            <id>vlan{{VLANforVNI7348}}</id>\n            <adminSt>up</adminSt>\n            <mac>{{ANYCAST-SVI-MAC}}</mac>\n            <vlanId>{{VLANforVNI7348}}</vlanId>\n        </If-list>\n    </svi-items>\n</intf-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Anycast SVI for VNI 8348",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<intf-items>   \n    <svi-items> \n        <If-list>\n            <id>vlan{{VLANforVNI8348}}</id>\n            <adminSt>up</adminSt>\n            <mac>{{ANYCAST-SVI-MAC-8348}}</mac>\n            <vlanId>{{VLANforVNI8348}}</vlanId>\n        </If-list>\n    </svi-items>\n</intf-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Join Anycast SVI 7348 to VRF Green",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    <intf-items>   \n        <svi-items> \n            <If-list>\n                <id>vlan{{VLANforVNI7348}}</id>\n                <rtvrfMbr-items>\n                    <tCl>l3Inst</tCl>\n                    <tDn>/System/Inst-list[mode=&apos;green&apos;]</tDn>\n                </rtvrfMbr-items>\n            </If-list>\n        </svi-items>\n    </intf-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Join Anycast SVI 8348 to VRF Green",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    <intf-items>   \n        <svi-items> \n            <If-list>\n                <id>vlan{{VLANforVNI8348}}</id>\n                <rtvrfMbr-items>\n                    <tCl>l3Inst</tCl>\n                    <tDn>/System/Inst-list[mode=&apos;green&apos;]</tDn>\n                </rtvrfMbr-items>\n            </If-list>\n        </svi-items>\n    </intf-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add IP to Anycast SVI 7348",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<ipv4-items>\n  <inst-items>\n    <dom-items>\n      <Dom-list>\n        <name>green</name>\n        <if-items>\n          <If-list>\n            <id>vlan{{VLANforVNI7348}}</id>\n            <addr-items>\n              <Addr-list>\n                <addr>72.1.1.1/24</addr>\n                <tag>8558</tag>\n              </Addr-list>\n            </addr-items>\n          </If-list>\n        </if-items>\n      </Dom-list>\n    </dom-items>\n  </inst-items>\n</ipv4-items>\n<intf-items>\n  <svi-items>\n    <If-list>\n      <id>vlan{{VLANforVNI7348}}</id>\n      <rtvrfMbr-items>\n        <tDn>/System/inst-items/Inst-list[name='green']</tDn>\n      </rtvrfMbr-items>\n    </If-list>\n  </svi-items>\n</intf-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add IP to Anycast SVI 8348",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<ipv4-items>\n  <inst-items>\n    <dom-items>\n      <Dom-list>\n        <name>green</name>\n        <if-items>\n          <If-list>\n            <id>vlan{{VLANforVNI8348}}</id>\n            <addr-items>\n              <Addr-list>\n                <addr>142.1.1.1/24</addr>\n                <tag>8558</tag>\n              </Addr-list>\n            </addr-items>\n          </If-list>\n        </if-items>\n      </Dom-list>\n    </dom-items>\n  </inst-items>\n</ipv4-items>\n<intf-items>\n  <svi-items>\n    <If-list>\n      <id>vlan{{VLANforVNI8348}}</id>\n      <rtvrfMbr-items>\n        <tDn>/System/inst-items/Inst-list[name='green']</tDn>\n      </rtvrfMbr-items>\n    </If-list>\n  </svi-items>\n</intf-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Configure Anycast MAC Address",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<hmm-items>\n    <fwdinst-items>\n        <amac>FA16.3E00.0099</amac>\n        <if-items>\n            <FwdIf-list>\n                <id>vlan{{VLANforVNI7348}}</id>\n                <adminSt>enabled</adminSt>\n                <mode>anycastGW</mode>\n            </FwdIf-list>\n            <FwdIf-list>\n                <id>vlan{{VLANforVNI8348}}</id>\n                <adminSt>enabled</adminSt>\n                <mode>anycastGW</mode>\n            </FwdIf-list>\n        </if-items>\n    </fwdinst-items>\n</hmm-items>\n"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Enabled BGP AS 61000",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<bgp-items>\n    <adminSt>enabled</adminSt>\n    <inst-items>\n        <adminSt>enabled</adminSt>\n        <asn>61000</asn>\n        <name>bgp-Inst</name>\n        <dom-items>\n            <Dom-list>\n                <name>default</name>\n                <af-items>\n                    <DomAf-list>\n                        <type>ipv4-ucast</type>\n                        <name>bgp-DomAf</name>\n                    </DomAf-list>\n                </af-items>\n                <rtrId>{{LOOP0-IP}}</rtrId>\n            </Dom-list>\n        </dom-items>\n    </inst-items>\n    <name>bgp</name>\n</bgp-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,16 @@
+playbooks/roles/restconf-netconf-switches/vars/main.yml
+.DS_Store
+.Python
+.idea/
+ansible_ssh_keys.py
+bin/
+configs/
+include/
+lib/
+logs/
+pip-selfcheck.json
+reachability.py
+retry/
+playbooks/yum_install_mtx.yaml
+playbooks/yum_delete.yaml
+playbooks/.DS_Store

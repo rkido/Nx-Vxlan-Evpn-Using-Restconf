@@ -1,0 +1,62 @@
+---
+- name: enabling BASH
+  nxos_feature:
+    feature: bash-shell
+    provider: "{{ cli }}"
+    state: enabled
+
+- name: enabling NXAPI
+  nxos_feature:
+    feature: nxapi
+    provider: "{{ cli }}"
+    state: enabled
+- name: change HTTPS port to 5555
+  nxos_nxapi:
+    https: yes
+    https_port: 5555
+    provider: "{{ cli }}"
+
+- name: Enabling SCP
+  nxos_feature:
+    feature: scp-server
+    provider: "{{ cli }}"
+    state: enabled
+
+- name: Copying MTX Files
+  nxos_file_copy:
+    local_file: "{{ item }}"
+    username: "{{ nxusername }}"
+    password: "{{ nxpassword }}"
+    transport: cli
+    host: "{{ ansible_host }}"
+  with_items:
+    - "/Users/rkido/scp/mtx-device-7_0_3_I6_1.1.0.0-r1705191346.x86_64.rpm"
+    - "/Users/rkido/scp/mtx-infra-1.0.0-r1705191346.x86_64.rpm"
+    - "/Users/rkido/scp/mtx-netconf-agent-1.0.1-r1705191346.x86_64.rpm"
+    - "/Users/rkido/scp/mtx-openconfig-bgp-7_0_3_I6_1.1.0.0-r1705170158.x86_64.rpm"
+    - "/Users/rkido/scp/mtx-openconfig-bgp-multiprotocol-7_0_3_I6_1.1.0.0-r1705170136.x86_64.rpm"
+    - "/Users/rkido/scp/mtx-openconfig-if-ip-7_0_3_I6_1.1.0.0-r1705170202.x86_64.rpm"
+    - "/Users/rkido/scp/mtx-openconfig-interfaces-7_0_3_I6_1.1.0.0-r1705190423.x86_64.rpm"
+    - "/Users/rkido/scp/mtx-openconfig-local-routing-7_0_3_I6_1.1.0.0-r1705190305.x86_64.rpm"
+    - "/Users/rkido/scp/mtx-openconfig-routing-policy-7_0_3_I6_1.1.0.0-r1705190248.x86_64.rpm"
+    - "/Users/rkido/scp/mtx-openconfig-vlan-7_0_3_I6_1.1.0.0-r1705190425.x86_64.rpm"
+    - "/Users/rkido/scp/mtx-restconf-agent-1.0.1-r1705191346.x86_64.rpm"
+
+- name: Disabling SCP
+  nxos_feature:
+    feature: scp-server
+    provider: "{{ cli }}"
+    state: disabled
+
+- name: Run "yum install" at bash
+  nxos_command:
+    commands:
+      - run bash sudo bash -c 'yum install -q -y /bootflash/mtx-*'
+    provider: "{{ cli }}"
+
+- name: Enable RESTCONF+NETCONF
+  nxos_command:
+    commands:
+      - run bash sudo bash -c 'restconfctl start'
+      - run bash sudo bash -c 'netconfctl start'
+    provider: "{{ cli }}"

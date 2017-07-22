@@ -1,0 +1,69 @@
+{
+  "id": "d5a234f5-626c-d540-6589-8be9545e9f7d",
+  "name": "Postman Globals",
+  "values": [
+    {
+      "enabled": true,
+      "key": "STATE",
+      "type": "text",
+      "value": "enabled"
+    },
+    {
+      "enabled": true,
+      "key": "LEAF1-Loop0",
+      "type": "text",
+      "value": "172.16.0.5"
+    },
+    {
+      "enabled": true,
+      "key": "LEAF2-Loop0",
+      "type": "text",
+      "value": "172.16.0.6"
+    },
+    {
+      "enabled": true,
+      "key": "LEAF3-Loop0",
+      "type": "text",
+      "value": "172.16.0.7"
+    },
+    {
+      "enabled": true,
+      "key": "LEAF4-Loop0",
+      "type": "text",
+      "value": "172.16.0.8"
+    },
+    {
+      "enabled": true,
+      "key": "SPINE1-Loop0",
+      "type": "text",
+      "value": "172.16.0.1"
+    },
+    {
+      "enabled": true,
+      "key": "SPINE2-Loop0",
+      "type": "text",
+      "value": "172.16.0.2"
+    },
+    {
+      "enabled": true,
+      "key": "SPINE3-Loop0",
+      "type": "text",
+      "value": "172.16.0.3"
+    },
+    {
+      "enabled": true,
+      "key": "SPINE4-Loop0",
+      "type": "text",
+      "value": "172.16.0.4"
+    },
+    {
+      "enabled": true,
+      "key": "VLANforVNI8348",
+      "type": "text",
+      "value": "2552"
+    }
+  ],
+  "_postman_variable_scope": "globals",
+  "_postman_exported_at": "2017-07-12T09:16:06.025Z",
+  "_postman_exported_using": "Postman/5.0.2"
+}

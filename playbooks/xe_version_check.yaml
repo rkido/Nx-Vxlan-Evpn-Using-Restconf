@@ -1,0 +1,22 @@
+---
+- name: Verify IOS-XE versions are in compliance with standard version
+  hosts: csr1kvs
+  gather_facts: false
+  connection: local
+
+  tasks: 
+    - name: Grab the IOS-XE version and tell me if it complies
+      ios_facts:
+        provider: "{{ cli }}"
+      register: output
+#    - debug: var=output['ansible_facts']['ansible_net_version']
+
+    - debug: msg="Device Running Approved Software Version"
+      when: output['ansible_facts']['ansible_net_version'] == '16.5.1b'
+#    - name: Add nocomply file
+#      lineinfile:
+#        create: yes
+#        state: present
+#        insertafter: EOF
+#        path: ./noncompliant.txt
+#        line: "{{ output.ansible_facts.ansible_net_hostname }} \n"

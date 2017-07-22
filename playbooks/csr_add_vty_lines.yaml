@@ -1,0 +1,14 @@
+---
+- name: Remove Routing Protocols
+  hosts: csr1kvs
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Remove BGP, EIGRP and OSPF
+      ios_config:
+        lines:
+          - login local
+          - transport input telnet ssh
+        provider: "{{ cli }}"
+        parents: line vty 0 15

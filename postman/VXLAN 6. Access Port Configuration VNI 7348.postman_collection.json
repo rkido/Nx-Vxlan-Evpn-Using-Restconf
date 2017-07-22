@@ -1,0 +1,61 @@
+{
+	"variables": [],
+	"info": {
+		"name": "VXLAN 6. Access Port Configuration VNI 7348",
+		"_postman_id": "814e23bf-7a7a-a2b7-9543-f00249d9901d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Make VNI7348 Access Port L3 and Change MAC",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<intf-items>\n  <phys-items>\n    <PhysIf-list>\n      <id>{{VNI-7348-HOST-PORT}}</id>\n      <layer>Layer3</layer>\n      <routerMac>{{VNI-7348-HOST-PORT-MAC}}</routerMac>\n    </PhysIf-list>\n  </phys-items>\n</intf-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Change VLAN on VNI7348 Access Port",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<intf-items>\n  <phys-items>\n    <PhysIf-list>\n      <id>{{VNI-7348-HOST-PORT}}</id>\n      <mode>access</mode>\n      <layer>Layer2</layer>\n      <accessVlan>vlan-{{VLANforVNI7348}}</accessVlan>\n    </PhysIf-list>\n  </phys-items>\n</intf-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

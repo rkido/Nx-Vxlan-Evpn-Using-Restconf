@@ -1,0 +1,36 @@
+{
+	"variables": [],
+	"info": {
+		"name": "VXLAN 4. SPINE BGP Configuration",
+		"_postman_id": "3a854e21-eb19-db30-be0b-d55c58820fbd",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Enabled BGP SPINE Configuration",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<bgp-items>\n    <adminSt>enabled</adminSt>\n    <inst-items>\n        <asn>61000</asn>\n        <dom-items>\n            <Dom-list>\n                <name>default</name>\n                <peer-items>\n                    <Peer-list>\n                        <addr>172.16.0.0/24</addr>\n                        <adminSt>enabled</adminSt>\n                        <af-items>\n                            <PeerAf-list>\n                                <type>l2vpn-evpn</type>\n                                <advIntvl>0</advIntvl>\n                                <allowedSelfAsCnt>0</allowedSelfAsCnt>\n                                <asOverride>disabled</asOverride>\n                                <ctrl>rr-client</ctrl>\n                                <name>bgp-PeerAf</name>\n                                <nhThirdparty>enabled</nhThirdparty>\n                                <sendComExt>enabled</sendComExt>\n                                <sendComStd>enabled</sendComStd>\n                            </PeerAf-list>\n                        </af-items>\n                        <asn>61000</asn>\n                    </Peer-list>\n                </peer-items>\n            </Dom-list>\n        </dom-items>\n        <name>bgp-Inst</name>\n    </inst-items>\n    <name>bgp</name>\n</bgp-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

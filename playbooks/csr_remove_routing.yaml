@@ -1,0 +1,15 @@
+---
+- name: Remove Routing Protocols
+  hosts: csr1kvs
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Remove BGP, EIGRP and OSPF
+      ios_config:
+        lines:
+          - no router bgp 1
+          - no router ospf 1
+          - no router eigrp production
+        provider: "{{ cli }}"
+#        before: no router ospf 1

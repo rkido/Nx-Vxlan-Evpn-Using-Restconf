@@ -1,0 +1,27 @@
+---
+- name: Remove Routing Protocols
+  hosts: csr1kvs
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Remove BGP, EIGRP and OSPF
+      ios_config:
+        lines:
+          - no ip multicast-routing distributed
+          - no ip pim autorp listener
+        provider: "{{ cli }}"
+
+  tasks:
+    - name: Get interface lists
+      ios_facts:
+        gather_subset: interfaces
+        provider: "{{ cli }}"
+      register: content
+#    - debug: var=content.ansible_facts.ansible_net_interfaces
+    - name: Check for Loopback1, if it exists delete it
+      ios_config:
+        lines: no interface loopback1
+        provider: "{{ cli }}"
+      with_dict: "{{ content.ansible_facts.ansible_net_interfaces }}"
+      when: item.key == 'Loopback1'

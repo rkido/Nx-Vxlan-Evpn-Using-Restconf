@@ -1,0 +1,61 @@
+{
+	"variables": [],
+	"info": {
+		"name": "VXLAN 5. LEAF BGP Configuration",
+		"_postman_id": "c8544de0-c016-0df4-46c9-5d3b93058807",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Route-Map for LOCALS",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  <rpm-items>\n    <rtmap-items>\n      <Rule-list>\n        <name>LOCALS</name>\n        <ent-items>\n          <Entry-list>\n            <order>10</order>\n            <action>permit</action>\n            <mrttag-items>\n              <MatchRtTag-list>\n                <tag>8558</tag>\n              </MatchRtTag-list>\n            </mrttag-items>\n          </Entry-list>\n        </ent-items>\n      </Rule-list>\n    </rtmap-items>\n  </rpm-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Enabled BGP LEAF Configuration",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<bgp-items>\n    <adminSt>enabled</adminSt>\n    <inst-items>\n        <asn>61000</asn>\n        <dom-items>\n            <Dom-list>\n                <name>default</name>\n                <peer-items>\n                    <Peer-list>\n                        <addr>{{SPINE1-Loop0}}</addr>\n                        <adminSt>enabled</adminSt>\n                        <af-items>\n                            <PeerAf-list>\n                                <type>l2vpn-evpn</type>\n                                <advIntvl>0</advIntvl>\n                                <allowedSelfAsCnt>0</allowedSelfAsCnt>\n                                <asOverride>disabled</asOverride>\n                                <name>bgp-PeerAf</name>\n                                <nhThirdparty>enabled</nhThirdparty>\n                                <sendComExt>enabled</sendComExt>\n                                <sendComStd>enabled</sendComStd>\n                            </PeerAf-list>\n                        </af-items>\n                        <asn>61000</asn>\n                        <ent-items>\n                            <PeerEntry-list>\n                                <addr>{{SPINE1-Loop0}}</addr>\n                                <af-items>\n                                    <PeerAfEntry-list>\n                                        <type>l2vpn-evpn</type>\n                                    </PeerAfEntry-list>\n                                </af-items>\n                            </PeerEntry-list>\n                        </ent-items>\n                        <srcIf>lo0</srcIf>\n                    </Peer-list>\n                    <Peer-list>\n                        <addr>{{SPINE2-Loop0}}</addr>\n                        <adminSt>enabled</adminSt>\n                        <af-items>\n                            <PeerAf-list>\n                                <type>l2vpn-evpn</type>\n                                <advIntvl>0</advIntvl>\n                                <allowedSelfAsCnt>0</allowedSelfAsCnt>\n                                <asOverride>disabled</asOverride>\n                                <name>bgp-PeerAf</name>\n                                <nhThirdparty>enabled</nhThirdparty>\n                                <sendComExt>enabled</sendComExt>\n                                <sendComStd>enabled</sendComStd>\n                            </PeerAf-list>\n                        </af-items>\n                        <asn>61000</asn>\n                        <ent-items>\n                            <PeerEntry-list>\n                                <addr>{{SPINE2-Loop0}}</addr>\n                                <af-items>\n                                    <PeerAfEntry-list>\n                                        <type>l2vpn-evpn</type>\n                                    </PeerAfEntry-list>\n                                </af-items>\n                            </PeerEntry-list>\n                        </ent-items>\n                        <srcIf>lo0</srcIf>\n                    </Peer-list>\n                    <Peer-list>\n                        <addr>{{SPINE3-Loop0}}</addr>\n                        <adminSt>enabled</adminSt>\n                        <af-items>\n                            <PeerAf-list>\n                                <type>l2vpn-evpn</type>\n                                <advIntvl>0</advIntvl>\n                                <allowedSelfAsCnt>0</allowedSelfAsCnt>\n                                <asOverride>disabled</asOverride>\n                                <name>bgp-PeerAf</name>\n                                <nhThirdparty>enabled</nhThirdparty>\n                                <sendComExt>enabled</sendComExt>\n                                <sendComStd>enabled</sendComStd>\n                            </PeerAf-list>\n                        </af-items>\n                        <asn>61000</asn>\n                        <ent-items>\n                            <PeerEntry-list>\n                                <addr>{{SPINE3-Loop0}}</addr>\n                                <af-items>\n                                    <PeerAfEntry-list>\n                                        <type>l2vpn-evpn</type>\n                                    </PeerAfEntry-list>\n                                </af-items>\n                            </PeerEntry-list>\n                        </ent-items>\n                        <srcIf>lo0</srcIf>\n                    </Peer-list>\n                    <Peer-list>\n                        <addr>{{SPINE4-Loop0}}</addr>\n                        <adminSt>enabled</adminSt>\n                        <af-items>\n                            <PeerAf-list>\n                                <type>l2vpn-evpn</type>\n                                <advIntvl>0</advIntvl>\n                                <allowedSelfAsCnt>0</allowedSelfAsCnt>\n                                <asOverride>disabled</asOverride>\n                                <name>bgp-PeerAf</name>\n                                <nhThirdparty>enabled</nhThirdparty>\n                                <sendComExt>enabled</sendComExt>\n                                <sendComStd>enabled</sendComStd>\n                            </PeerAf-list>\n                        </af-items>\n                        <asn>61000</asn>\n                        <ent-items>\n                            <PeerEntry-list>\n                                <addr>{{SPINE4-Loop0}}</addr>\n                                <af-items>\n                                    <PeerAfEntry-list>\n                                        <type>l2vpn-evpn</type>\n                                    </PeerAfEntry-list>\n                                </af-items>\n                            </PeerEntry-list>\n                        </ent-items>\n                        <srcIf>lo0</srcIf>\n                    </Peer-list>\n                </peer-items>\n            </Dom-list>\n            <Dom-list>\n                <name>green</name>\n                <af-items>\n                    <DomAf-list>\n                        <type>ipv4-ucast</type>\n                        <advertL2vpnEvpn>enabled</advertL2vpnEvpn>\n                        <interleak-items>\n                            <InterLeakP-list>\n                                <proto>direct</proto>\n                                <inst>none</inst>\n                                <asn>none</asn>\n                                <rtMap>LOCALS</rtMap>\n                                <scope>inter</scope>\n                            </InterLeakP-list>\n                        </interleak-items>\n                        <maxEcmp>4</maxEcmp>\n                        <name>bgp-DomAf</name>\n                    </DomAf-list>\n                </af-items>\n            </Dom-list>\n        </dom-items>\n        <name>bgp-Inst</name>\n    </inst-items>\n    <name>bgp</name>\n</bgp-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

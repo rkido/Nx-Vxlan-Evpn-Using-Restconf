@@ -1,0 +1,48 @@
+---
+- name: Move MTX Files to NX Devices
+  hosts: n9ks
+  connection: local
+  gather_facts: false
+
+  vars_prompt:
+    - name: "nxusername"
+      prompt: "scp username"
+      private: no
+    - name: "nxpassword"
+      prompt: "scp password"
+      private: yes
+
+
+  tasks:
+
+  - name: Enabling SCP
+    nxos_feature:
+      feature: scp-server
+      provider: "{{ cli }}"
+      state: enabled
+
+  - name: Copying MTX Files
+    nxos_file_copy:
+      local_file: "{{ item }}"
+      username: "{{ nxusername }}"
+      password: "{{ nxpassword }}"
+      transport: cli
+      host: "{{ ansible_host }}"
+    with_items:
+      - "/Users/rkido/scp/mtx-device-7_0_3_I6_1.1.0.0-r1705191346.x86_64.rpm"
+      - "/Users/rkido/scp/mtx-infra-1.0.0-r1705191346.x86_64.rpm"
+      - "/Users/rkido/scp/mtx-netconf-agent-1.0.1-r1705191346.x86_64.rpm"
+      - "/Users/rkido/scp/mtx-openconfig-bgp-7_0_3_I6_1.1.0.0-r1705170158.x86_64.rpm"
+      - "/Users/rkido/scp/mtx-openconfig-bgp-multiprotocol-7_0_3_I6_1.1.0.0-r1705170136.x86_64.rpm"
+      - "/Users/rkido/scp/mtx-openconfig-if-ip-7_0_3_I6_1.1.0.0-r1705170202.x86_64.rpm"
+      - "/Users/rkido/scp/mtx-openconfig-interfaces-7_0_3_I6_1.1.0.0-r1705190423.x86_64.rpm"
+      - "/Users/rkido/scp/mtx-openconfig-local-routing-7_0_3_I6_1.1.0.0-r1705190305.x86_64.rpm"
+      - "/Users/rkido/scp/mtx-openconfig-routing-policy-7_0_3_I6_1.1.0.0-r1705190248.x86_64.rpm"
+      - "/Users/rkido/scp/mtx-openconfig-vlan-7_0_3_I6_1.1.0.0-r1705190425.x86_64.rpm"
+      - "/Users/rkido/scp/mtx-restconf-agent-1.0.1-r1705191346.x86_64.rpm"
+      
+  - name: Disabling SCP
+    nxos_feature:
+      feature: scp-server
+      provider: "{{ cli }}"
+      state: disabled

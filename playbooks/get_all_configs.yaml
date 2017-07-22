@@ -1,0 +1,17 @@
+---
+- name: versions playbook
+  hosts: all
+  gather_facts: false
+  connection: local
+  tasks:
+  - name: Get "show run" on all devices
+    ios_command:
+      commands: show run
+      provider: "{{ cli }}"
+    register: content
+#  - debug: var=content.stdout_lines
+
+  - name: copy running config to file
+    copy:
+      content: "{{ content.stdout[0] }}"
+      dest: ../configs/{{ inventory_hostname }}.txt

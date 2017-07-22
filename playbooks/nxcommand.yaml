@@ -1,0 +1,19 @@
+---
+- name: Go to Bash / CD to Bootflash / YUM Install all MTX / Enable RESTCONF & NETCONF
+  hosts: n9ks
+  gather_facts: false
+  connection: local
+
+  vars_prompt:
+    - name: "userinput"
+      prompt: "NXOS Command"
+      private: no
+
+  tasks:
+  - name: Running {{ userinput }}
+    nxos_command:
+      commands:
+        - command: "{{ userinput }}"
+      provider: "{{ cli }}"
+    register: output
+  - debug: var=output.stdout[0]

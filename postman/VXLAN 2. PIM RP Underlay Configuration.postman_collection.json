@@ -1,0 +1,111 @@
+{
+	"variables": [],
+	"info": {
+		"name": "VXLAN 2. PIM RP Underlay Configuration",
+		"_postman_id": "783f9196-c59f-518a-126c-53a7da2ed71a",
+		"description": "This collection is only applicable to the RP SPINE nodes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Loopback with IPs for Multicast Underlay",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  <ipv4-items>\n    <inst-items>\n      <dom-items>\n        <Dom-list>\n          <name>default</name>\n          <if-items>\n            <If-list>\n              <id>lo1</id>\n              <addr-items>\n                <Addr-list>\n                  <addr>{{LOOP1-IP}}/32</addr>\n                </Addr-list>\n              </addr-items>\n            </If-list>\n          </if-items>\n        </Dom-list>\n      </dom-items>\n    </inst-items>\n  </ipv4-items>\n  <intf-items>\n    <lb-items>\n      <LbRtdIf-list>\n        <id>lo1</id>\n      </LbRtdIf-list>\n    </lb-items>\n  </intf-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Enable PIM ASM on RP Loop1",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  <pim-items>\n    <inst-items>\n      <dom-items>\n        <Dom-list>\n          <name>default</name>\n          <if-items>\n            <If-list>\n              <id>lo1</id>\n              <pimSparseMode>true</pimSparseMode>\n            </If-list>\n          </if-items>\n        </Dom-list>\n      </dom-items>\n    </inst-items>\n  </pim-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Enable OSPF on RP Loop1",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    <ospf-items>\n        <adminSt>enabled</adminSt>\n        <inst-items>\n            <Inst-list>\n                <name>1</name>\n                <adminSt>enabled</adminSt>\n                <dom-items>\n                    <Dom-list>\n                        <name>default</name>\n                        <adminSt>enabled</adminSt>\n                        <if-items>\n                            <If-list>\n                                <id>lo1</id>\n                                <adminSt>enabled</adminSt>\n                                <advertiseSecondaries>true</advertiseSecondaries>\n                                <area>0.0.0.0</area>\n                                <bfdCtrl>unspecified</bfdCtrl>\n                                <cost>unspecified</cost>\n                                <deadIntvl>unspecified</deadIntvl>\n                                <helloIntvl>10</helloIntvl>\n                                <nwT>unspecified</nwT>\n                                <passiveCtrl>unspecified</passiveCtrl>\n                                <prio>1</prio>\n                                <rexmitIntvl>5</rexmitIntvl>\n                                <xmitDelay>1</xmitDelay>\n                            </If-list>\n                        </if-items>\n                    </Dom-list>\n                </dom-items>\n            </Inst-list>\n        </inst-items>\n    </ospf-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Enable Anycast RP on RP nodes",
+			"request": {
+				"url": "{{MGMT-IP-PORT}}/restconf/data/Cisco-NX-OS-device:System",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang.data+xml",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  <pim-items>\n    <inst-items>\n      <dom-items>\n        <Dom-list>\n          <name>default</name>\n          <acastrpfunc-items>\n            <peer-items>\n              <AcastRPPeer-list>\n                <addr>172.16.0.250/32</addr>\n                <rpSetAddr>{{ANYCAST-RP-PEER}}</rpSetAddr>\n              </AcastRPPeer-list>\n            </peer-items>\n          </acastrpfunc-items>\n        </Dom-list>\n      </dom-items>\n    </inst-items>\n  </pim-items>"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

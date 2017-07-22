@@ -1,0 +1,19 @@
+---
+- name: Enable NXAPI
+  hosts: n9ks
+  connection: local
+  gather_facts: false
+
+  tasks:
+
+  - name: enabling NXAPI
+    nxos_feature:
+      feature: nxapi
+      provider: "{{ cli }}"
+      state: enabled
+  - name: change HTTPS port to 5555
+    nxos_nxapi:
+      https: yes
+      https_port: 5555
+      provider: "{{ cli }}"
+
