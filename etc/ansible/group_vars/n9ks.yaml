@@ -1,0 +1,6 @@
+---
+cli:
+  username: changeToYourUsername
+  password: changeToYourPassword
+  transport: cli
+#  host: "{{ inventory_hostname }}"

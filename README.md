@@ -33,7 +33,9 @@
 ## Usage Example
 Clone the repo.  
 Download the Nexus Netconf and Restconf YANG [mtx files](https://devhub.cisco.com/artifactory/open-nxos-agents/)  
-Make sure you have your hosts file and group_vars directory in your /etc/ansible folder for the "cli" provider.  This is my /etc/ansible  
+Make sure you have your hosts file and group_vars directory in your /etc/ansible folder for the "cli" provider.  
+The repo contains a copy of my ansible hosts file and n9ks.yaml in group_vars which you can modify and use.  
+This is my /etc/ansible  
 
 ```
 -rw-r--r--  1 root  wheel    18K Jul 12 09:06 ansible.cfg

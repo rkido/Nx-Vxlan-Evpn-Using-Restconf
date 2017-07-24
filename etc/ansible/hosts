@@ -1,0 +1,29 @@
+[n9ks]
+nx-osv9000-1 ansible_host=10.92.77.187
+nx-osv9000-2 ansible_host=10.92.77.188
+nx-osv9000-3 ansible_host=10.92.77.189
+nx-osv9000-4 ansible_host=10.92.77.190
+nx-osv9000-5 ansible_host=10.92.77.166
+nx-osv9000-6 ansible_host=10.92.77.167
+nx-osv9000-7 ansible_host=10.92.77.168
+nx-osv9000-8 ansible_host=10.92.77.169
+
+[csr1kvs]
+csr1000v-1 ansible_host=10.92.77.186
+csr1000v-2 ansible_host=10.92.77.179
+
+[spines]
+nx-osv9000-1 ansible_host=10.92.77.187
+nx-osv9000-2 ansible_host=10.92.77.188
+nx-osv9000-3 ansible_host=10.92.77.189
+nx-osv9000-4 ansible_host=10.92.77.190
+
+[leafs]
+nx-osv9000-5 ansible_host=10.92.77.166
+nx-osv9000-6 ansible_host=10.92.77.167
+nx-osv9000-7 ansible_host=10.92.77.168
+nx-osv9000-8 ansible_host=10.92.77.169
+
+[boarder_leafs]
+nx-osv9000-5 ansible_host=10.92.77.166
+nx-osv9000-6 ansible_host=10.92.77.167
